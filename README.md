@@ -13,9 +13,9 @@ VSCode
 ```
 - After install run
 ```
-    npm i -g typescript 
-    tsc 
-    node lib/Index.js
+    npm i typescript 
+    npm run build 
+    npm start
 ```
 
 

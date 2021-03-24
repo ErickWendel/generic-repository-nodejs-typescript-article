@@ -1,4 +1,6 @@
-export class Spartan {
+import { IEntity } from "./IEntity";
+
+export class Spartan implements IEntity{
   private name: string;
   private kills: number;
 
@@ -6,4 +8,6 @@ export class Spartan {
     this.name = name;
     this.kills = kills;
   }
+
+  _id: string | undefined;
 }
