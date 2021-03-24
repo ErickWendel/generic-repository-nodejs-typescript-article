@@ -1,9 +1,13 @@
-export class Hero {
-    private name: string;
-    private savedLifes: number;
+import { IEntity } from "./IEntity";
 
-    constructor(name: string, savedLifes: number) {
-        this.name = name;
-        this.savedLifes = savedLifes;
-    }
+export class Hero implements IEntity {
+  private name: string;
+  private savedLifes: number;
+
+  constructor(name: string, savedLifes: number) {
+    this.name = name;
+    this.savedLifes = savedLifes;
+  }
+  
+  _id: string | undefined;
 }
