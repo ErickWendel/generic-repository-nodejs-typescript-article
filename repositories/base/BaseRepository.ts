@@ -21,13 +21,13 @@ export abstract class BaseRepository<T> implements IWrite<T>, IRead<T> {
     this._collection = db.collection(collectionName);
   }
 
-  // we add to method, the async keyword to manipulate the insert result
+  // we add to method, the async keyword to manipulate the insertOne result
   // of method.
   async create(item: T): Promise<boolean> {
     const result: InsertOneResult<Document> = await this._collection.insertOne(
 			item
 		);
-    // after the insert operations, we returns only ok property (that haves a 1 or 0 results)
+    // after the insert operations, we returns only acknowledged property (that haves a 1 or 0 results)
     // and we convert to boolean result (0 false, 1 true)
     return !!result.acknowledged;
   }
