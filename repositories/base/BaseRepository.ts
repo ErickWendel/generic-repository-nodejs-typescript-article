@@ -3,7 +3,12 @@ import { IWrite } from '../interfaces/IWrite';
 import { IRead } from '../interfaces/IRead';
 
 // we imported all types from mongodb driver, to use in code
-import { MongoClient, Db, Collection, InsertOneWriteOpResult } from 'mongodb';
+import {
+	Db,
+	Collection,
+	InsertOneResult,
+	Document,
+} from 'mongodb';
 
 // that class only can be extended
 export abstract class BaseRepository<T> implements IWrite<T>, IRead<T> {
@@ -16,13 +21,15 @@ export abstract class BaseRepository<T> implements IWrite<T>, IRead<T> {
     this._collection = db.collection(collectionName);
   }
 
-  // we add to method, the async keyword to manipulate the insert result
+  // we add to method, the async keyword to manipulate the insertOne result
   // of method.
   async create(item: T): Promise<boolean> {
-    const result: InsertOneWriteOpResult = await this._collection.insert(item);
-    // after the insert operations, we returns only ok property (that haves a 1 or 0 results)
+    const result: InsertOneResult<Document> = await this._collection.insertOne(
+			item
+		);
+    // after the insert operations, we returns only acknowledged property (that haves a 1 or 0 results)
     // and we convert to boolean result (0 false, 1 true)
-    return !!result.result.ok;
+    return !!result.acknowledged;
   }
 
 

@@ -11,7 +11,9 @@ import { Hero } from './entities/Hero';
 // creating a function that execute self runs
 (async () => {
     // connecting at mongoClient
-    const connection = await MongoClient.connect('mongodb://localhost');
+    const connection: MongoClient = await MongoClient.connect(
+		'mongodb://localhost:27017'
+	);
     const db = connection.db('warriors');
 
     // our operations
@@ -37,8 +39,16 @@ import { Hero } from './entities/Hero';
     const hero = new Hero('Spider Man', 200);
     const repositoryHero = new HeroRepository(db, 'heroes');
     const resultHero = await repositoryHero.create(hero);
-    console.log(`hero inserted with ${result ? 'success' : 'fail'}`)
+    console.log(`hero inserted with ${resultHero ? 'success' : 'fail'}`)
+    const countHeroes = await repositoryHero.countOfHeroes();
+    console.log(`the count of heroes is ${countHeroes}`)
 
+    /**
+     * hero inserted with success
+      the count of heroes is 1
+     */
+
+    connection.close();
 })();
 
 
